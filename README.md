@@ -21,6 +21,6 @@ URLS
 
 (GET and POST) http://localhost:8000/api/items/
 
-(GET) http://localhost:8000/api/items/<pk>
+(GET) http://localhost:8000/api/items/id_of_the_item_to_be_replaced_by_this
   
   **Note: have sent settings.py file in mail if you do not want to set environment varible, only DB credentials have to be set(credentials to be set sent on mail)
