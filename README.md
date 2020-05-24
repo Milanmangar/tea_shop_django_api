@@ -7,9 +7,8 @@ python-django rest api for tea shop
 1) cd tea_shop_django_rest
 2) pip install -r requirements.txt
 3) install postgresql
-4) set environment variable for DB credentials,DEBUG, SECRET_KEY(sent on mail) and add in settings.py
-5) python manage.py migrate
-6) python manage.py createsuperuser (fill in the you details)
+4) python manage.py migrate
+5) python manage.py createsuperuser (fill in the you details)
 6) python manage.py runserver 0.0.0.0:8000
 
 **How to run the test**
@@ -21,6 +20,5 @@ URLS
 
 (GET and POST) http://localhost:8000/api/items/
 
-(GET) http://localhost:8000/api/items/id_of_the_item_to_be_replaced_by_this
+(GET, PUT, DELETE) http://localhost:8000/api/items/id_of_the_item_to_be_replaced_by_this
   
-  **Note: have sent settings.py file in mail if you do not want to set environment varible, only DB credentials have to be set(credentials to be set sent on mail)
