@@ -21,9 +21,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = '4fveakug4z7mt)@x-$m5wfyr^3@$g_ujmn)9#)k^9(5w5xljpa'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['DEBUG']
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'tea_shop_django_rest.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['USER_NAME'],
-        'PASSWORD': os.environ['PASSWORD'],
-        'HOST': os.environ['HOST'],
-        'PORT': os.environ['PORT']
+        'NAME': 'tea_shop_django_rest_db',
+        'USER': 'postgres',
+        'PASSWORD': 'Test@123',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 

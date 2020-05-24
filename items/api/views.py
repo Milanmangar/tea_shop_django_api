@@ -30,7 +30,7 @@ class HomeView(viewsets.ViewSet):
             for items_list in response:
                 for k, v in items_list.items():
                     if k == 'image':
-                        items_list.update(image='http://192.168.1.108:8000' + v)
+                        items_list.update(image='http://localhost:8000' + v)
                         break
         return response
 
@@ -51,5 +51,23 @@ class HomeView(viewsets.ViewSet):
         item = get_object_or_404(queryset, pk=pk)
         serializer = ItemsSerializer(item)
         response = serializer.data
-        response.update(image='http://192.168.1.108:8000' + response['image'])
+        if settings.DEBUG:
+            response.update(image='http://localhost:8000' + response['image'])
         return Response({'result': {'item_detail': response}}, status.HTTP_200_OK)
+
+    def destroy(self, request, pk=None):
+        """ to delete the specfic item """
+        Items.objects.filter(pk=pk).delete()
+        return Response({}, status.HTTP_204_NO_CONTENT)
+
+    def put(self, request, pk=None):
+        """ to update the specfic item """
+        queryset = Items.objects.get(pk=pk)
+        serializer = ItemsSerializer(instance=queryset, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        response = serializer.data
+        if settings.DEBUG:
+            response.update(image='http://localhost:8000' + response['image'])
+        message = "updated Successfully! redirecting to details page"
+        return Response({'result': {'item_detail': response, "message": message}}, status.HTTP_200_OK)

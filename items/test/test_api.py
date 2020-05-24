@@ -60,6 +60,28 @@ class ItemsApiTests(TestCase):
         item = get_object_or_404(queryset, pk=pk)
         serializer = ItemsSerializer(item)
         response = serializer.data
-        response.update(image='http://192.168.1.108:8000' + response['image'])
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, {"result":{"item_detail":response}})
+
+    def test_delete_one_items(self):
+        """ deleting the one of item from two """
+        item1 = Items.objects.create(name="Green Tea", description="Refreshing and Healthy Tea", price=20, image=self.tem_img1)
+        item2 = Items.objects.create(name="Egg Roll", description="Egg with roti and veggies", price=40, image=self.tem_img2)
+        pk = item1.id
+        res = self.client.delete(self.items_url+ f'{pk}/')
+        Items.objects.filter(pk=pk).delete()
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+    
+    def test_update_items(self):
+        """ updating an item """
+        item = Items.objects.create(name="Green Tea", description="Refreshing and Healthy Tea", price=20, image=self.tem_img1)
+        pk = item.id
+        payload = {"name": "Coffee", "description":"Strong and refreshing", "price":25, "image":self.image1}
+        res = self.client.put(self.items_url+ f'{pk}/', payload, format='multipart')
+        queryset = Items.objects.all()
+        item = get_object_or_404(queryset, pk=pk)
+        serializer = ItemsSerializer(item)
+        response = serializer.data
+        message = "updated Successfully! redirecting to details page"
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data, {"result":{"item_detail":response, "message": message}})
